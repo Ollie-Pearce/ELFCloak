@@ -1,0 +1,2 @@
+ELFCloak should be runnable without requiring the installation of any additional libraries as the libdasm library used is included in the /lib folder and imported by ELFCloak. a link is provided to this library in case installation is required for execution:
+https://github.com/jtpereyda/libdasm
