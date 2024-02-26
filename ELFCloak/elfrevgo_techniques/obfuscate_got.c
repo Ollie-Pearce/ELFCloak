@@ -16,17 +16,24 @@ get_lib_func_add(char* fileStr, char*  lib_func)
     strcat(command, lib_func);
 
     pOutput = popen(command, "r");
-	fgets(outputStr, sizeof(outputStr), pOutput);//place output of command in outputStr
-    char *pStrtok = strtok(outputStr, " ");
 	
-	while (pStrtok != NULL)
-	{
-		relocStr[i] = pStrtok;
-		pStrtok = strtok(NULL, " ");	
-		i = i + 1;
-	}
-    func_add = (int)strtol(relocStr[0], NULL, 16);
-    return (func_add);
+    if(pOutput != NULL){
+        fgets(outputStr, sizeof(outputStr), pOutput);//place output of command in outputStr
+        char *pStrtok = strtok(outputStr, " ");
+        
+        while (pStrtok != NULL)
+        {
+            relocStr[i] = pStrtok;
+            pStrtok = strtok(NULL, " ");	
+            i = i + 1;
+        }
+        func_add = (int)strtol(relocStr[0], NULL, 16);
+        fclose(pOutput);
+        return (func_add);
+    }else{
+        fclose(pOutput);
+        return 0;
+    }
 }
 
 //Calculates the physical offset of the function to replace by subtracting the address of the .got.plt. from the function's 'virtual address and adding the physical offset of the .got.plt to the result
@@ -34,7 +41,8 @@ int
 virtual_to_physical(char* fileStr, int func_dyn_add)
 {
     FILE *pOutput;
-	char* command[23 + sizeof(fileStr)]; //hold command
+	//char* command[23 + sizeof(fileStr)]; //hold command
+    char command[500]; //hold command
     int offsets[2];
     int section_offset;
     char* gotStr[5];
@@ -135,7 +143,7 @@ get_usr_addr(char* fileStr, unsigned char* flData, char* funcName)
         exit(0);
     }
     printf("Symbol table value of user defined function: %lx \n", symTab.st_value);
-
+    free(strTabData);
     free(offsets);
     fclose(pFile);
     return(symTab.st_value);

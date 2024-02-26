@@ -96,7 +96,8 @@ get_offsets (char* fileStr, char* section1, char* section2)
 	strcat(CommandStr2, fileStr);
 	strcat(CommandStr2, " | grep ");
     strcat(CommandStr2, section2);	
-    
+    fclose(pOutput);
+
 	pOutput = popen(CommandStr2, "r");
 	
 	fgets(outputStr, sizeof(outputStr), pOutput);
@@ -110,6 +111,7 @@ get_offsets (char* fileStr, char* section1, char* section2)
 	}
 	offsets[1] = (int)strtol(sections2[4], NULL, 16); 
 	
+	fclose(pOutput);
 	return offsets;
 }
                                                                                        
@@ -118,7 +120,7 @@ int
 get_entrypoint(char *fileStr)
 {
 	FILE *pOutput;
-	char command[23 + sizeof(fileStr)]; //hold command
+	char command[100 + sizeof(fileStr)]; //hold command
 	char outputStr[100];
 	char entryPointStr[7];
 	int entryPoint;
@@ -138,6 +140,7 @@ get_entrypoint(char *fileStr)
 	
 	entryPoint = strtol(entryPointStr, NULL, 0);//Convert entrypoint str to a hex number
 	
+	fclose(pOutput);
 	return(entryPoint);
 }
 
@@ -257,7 +260,6 @@ main(int argc, char *argv[])
 	fseek(pFile, 0L, SEEK_END);
   	size = ftell(pFile);
 	rewind(pFile);
-	
 	flData = read_file(&size, pFile);
 	
         if (obf_code == 1){
