@@ -34,7 +34,7 @@ int
 virtual_to_physical(char* fileStr, int func_dyn_add)
 {
     FILE *pOutput;
-	char command[23 + sizeof(fileStr)]; //hold command
+	char* command[23 + sizeof(fileStr)]; //hold command
     int offsets[2];
     int section_offset;
     char* gotStr[5];

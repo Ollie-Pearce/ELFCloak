@@ -1,5 +1,5 @@
 CC      = gcc
-CFLAGS  = -Wall -O3 -w
+CFLAGS  = -Wall -O3 -w -g
 BINDIR  = /usr/local/bin
 
 all: elfcloak target dec_and_run

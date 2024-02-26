@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//importmarker
+
 int custom_printf(char* input) 
 {
 	printf("GOT obfuscation successful\n");
@@ -15,9 +15,8 @@ void testfunc()
 }
 int main()
 {
-    //fillmarker
-	int x = system("Test\n");  
-    //fillmarker
-	printf("%i\n",x);
+	int y;  
+	time_t t;
+	t = time(NULL);
+	printf("I am a target file");
 }
-//endmarker
