@@ -1,6 +1,6 @@
 //Flips the bit representing the EI_CLASS macro inside the e_ident field of the ELF header
 void 
-obfuscate_class(char *flData)
+obfuscate_class(unsigned char *flData)
 {
 	if (flData[4] == 2) 
 		flData[4] = 1;

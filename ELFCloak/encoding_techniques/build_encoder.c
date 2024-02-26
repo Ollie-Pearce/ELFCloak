@@ -20,9 +20,9 @@ xor(int modifier, int xorVal)
 void 
 heuristic(int *seq, int passes)
 {
-	char noop = 0x90;
-	char pushA = 0x60;
-	char popA = 0x61;
+	unsigned char noop = 0x90;
+	unsigned char pushA = 0x60;
+	unsigned char popA = 0x61;
 	int i, j, r;
 	
 	struct heuristicState heurS = {.pushedA = 0};
@@ -110,7 +110,7 @@ create_exe(char* fileStr, int* encoder, int textsize, int* heuristicSeq, int pas
 //Build encoder array
 void 
 buildencoder(int encode_or_decode, int size, int* offsets, 
-			char *flData, char *fileStr, int *encoder, int xorVal, int *heuristicSeq, 
+			unsigned char *flData, char *fileStr, int *encoder, int xorVal, int *heuristicSeq, 
              int passes)
 {
     int textsize = *(offsets) - *(offsets + 1);

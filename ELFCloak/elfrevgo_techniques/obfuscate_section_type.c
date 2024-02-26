@@ -4,7 +4,7 @@
 
 //Overwrites the sh_type value of all section headers to 0
 void 
-obfuscate_section_type(char *flData, char* fileStr)
+obfuscate_section_type(unsigned char *flData, char* fileStr)
 {
 	int i, position;
 	Elf64_Ehdr hdr;

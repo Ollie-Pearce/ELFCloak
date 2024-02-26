@@ -66,9 +66,9 @@ virtual_to_physical(char* fileStr, int func_dyn_add)
 
 //Returns an integer representation of a 2 character long hexidecimal string
 int
-convert_to_denary(char *hexToConvert)
+convert_to_denary(unsigned char *hexToConvert)
 {
-    char * ptr;
+    unsigned char * ptr;
     int hex_output;
     hex_output = strtol(hexToConvert, &ptr, 16);
     return hex_output;
@@ -77,7 +77,7 @@ convert_to_denary(char *hexToConvert)
 
 //Find the value of the user defined function in the Symbol table
 int
-get_usr_addr(char* fileStr, char* flData, char* funcName)
+get_usr_addr(char* fileStr, unsigned char* flData, char* funcName)
 {
 	int i = 1, symHdr_found = 0, entry_found = 0;
     int* offsets;
@@ -109,7 +109,7 @@ get_usr_addr(char* fileStr, char* flData, char* funcName)
     }
     offsets = get_offsets(fileStr, ".strtab", ".shstrtab");
 
-    char *strTabData = (char *)malloc(offsets[1] - offsets[0]);//Allocate the size of string table to strTabData
+    unsigned char *strTabData = (unsigned char *)malloc(offsets[1] - offsets[0]);//Allocate the size of string table to strTabData
     for (i=0; i < offsets[1] - offsets[0]; i++)//read from string table
 	{
 		position = (offsets[0] + i);
@@ -119,7 +119,7 @@ get_usr_addr(char* fileStr, char* flData, char* funcName)
         }
 	}
 
-    char *func_index = strstr(strTabData, funcName);//Get index of custom function in string table
+    unsigned char *func_index = strstr(strTabData, funcName);//Get index of custom function in string table
     fseek(pFile, symHdr.sh_offset, SEEK_SET);//Move file pointer to symbol table
 
     i = 0;
@@ -143,14 +143,14 @@ get_usr_addr(char* fileStr, char* flData, char* funcName)
 
 //Overwrites the physical address of a shared library function with the virtual address of a user defined function
 void 
-obfuscate_got(char *flData, char* fileStr)
+obfuscate_got(unsigned char *flData, char* fileStr)
 {
     int validFunction = 0;
     char usr_func[256], library_func[256];
     int lib_vir_add;
     int lib_phys_add;
 	FILE* pFile = fopen(fileStr, "rb");
-    char hex_str[16];
+    unsigned char hex_str[16];
 
     while(validFunction == 0){
         printf("Enter a library function to replace with a user defined function \n");
@@ -175,22 +175,22 @@ obfuscate_got(char *flData, char* fileStr)
 
     int hex_str_size = strlen(hex_str) /2;
 
-    char hex_str_array[hex_str_size][3];
+    unsigned char hex_str_array[hex_str_size][3];
 
     for(int i = 0; i < hex_str_size * 2; i = i + 2){
         hex_str_array[i][0] = hex_str[i];
         hex_str_array[i][1] = hex_str[i + 1];
     }
     
-    char hex_str_littleendian[hex_str_size][3];
+    unsigned char hex_str_littleendian[hex_str_size][3];
     for(int i = 0; i <= hex_str_size + 1; i = i + 2){
         hex_str_littleendian[i][0] = hex_str_array[hex_str_size + 1 - i][0];
         hex_str_littleendian[i][1] = hex_str_array[hex_str_size + 1 - i][1];
     }
 
     int j = 0;
-    char hex_for_insertion1[100];
-    char hex_for_insertion2[100];
+    unsigned char hex_for_insertion1[100];
+    unsigned char hex_for_insertion2[100];
 
     memcpy(hex_for_insertion1 + 1, hex_for_insertion2, 1);
 

@@ -65,7 +65,7 @@ generate_imports(int fake_import_count)
 
 //Randomly generates calls to filler functions
 void
-generate_filler_calls(char *flData, int *size, char*** fillerStr, char *filler_calls, int count)
+generate_filler_calls(unsigned char *flData, int *size, char*** fillerStr, char *filler_calls, int count)
 {
     int filler_rand;
     srand(time(NULL));
@@ -79,7 +79,7 @@ generate_filler_calls(char *flData, int *size, char*** fillerStr, char *filler_c
 }
 //Inserts fake imports at the position of the //importmarker in new file data. Writes //importmarker to file so insert_filler_methods can find a position to insert methods.
 char *
-insert_imports(char *flData, char *newflData, char *fileStr,int target_size, int fake_import_count, char *fake_imports, char *data_holder)
+insert_imports(unsigned char *flData, unsigned char *newflData, char *fileStr,int target_size, int fake_import_count, char *fake_imports, char *data_holder)
 {
 
     char *pos; //This pointer will hold the location of the first instance of the insert marker
@@ -113,7 +113,7 @@ insert_imports(char *flData, char *newflData, char *fileStr,int target_size, int
 
 //Inserts filler methods at the position of \\importmarker in new file data
 char *
-insert_filler_methods(char *newflData, char *flDataFiller, int *sizeFiller, char *data_holder)
+insert_filler_methods(unsigned char *newflData, unsigned char *flDataFiller, int *sizeFiller, char *data_holder)
 {
     
     char *pos; 
@@ -135,7 +135,7 @@ insert_filler_methods(char *newflData, char *flDataFiller, int *sizeFiller, char
 
 //Inserts an array of filler calls into //fillmarkers in source code
 char *
-insert_filler_methods_call(char *newflData,char*** fillerStr, int count, char *data_holder)
+insert_filler_methods_call(unsigned char *newflData,char*** fillerStr, int count, char *data_holder)
 {
     int filler_rand;
     srand(time(NULL));
@@ -185,9 +185,9 @@ write_source_file(char *newflData,char *fileStr,int size)
 
 //Inserts fake imports, filler methods and their associated calls into a source code file
 void 
-obfuscate_code(char *flData, int target_size, char *fileStr, char *data_holder)
+obfuscate_code(unsigned char *flData, int target_size, char *fileStr, char *data_holder)
 {
-    char *flDataFiller;
+    unsigned char *flDataFiller;
     FILE *pFile;
     int sizeFiller, size, num_of_methods_input, valid_methods = 0;
     srand(time(NULL));
@@ -229,7 +229,7 @@ obfuscate_code(char *flData, int target_size, char *fileStr, char *data_holder)
     size = target_size + (fake_import_size + sizeFiller + strlen(filler_calls));
     int to_read = (size / sizeof(char));
 
-    char * newflData = (char *)malloc (size);
+    unsigned char * newflData = (char *)malloc (size);
 	newflData = insert_imports(flData, newflData, fileStr, target_size, fake_import_count, fake_imports, data_holder);
     newflData = insert_filler_methods(newflData, flDataFiller, &sizeFiller, data_holder);
 

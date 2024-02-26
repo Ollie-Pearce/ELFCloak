@@ -27,7 +27,7 @@
 //#include "elfcloak_tests.h"
 
 //this method adapted from the das example in libdasm
-char * 
+unsigned char * 
 read_file(int *size, FILE **fp)
 { 
         char            *buf;
@@ -148,7 +148,7 @@ main(int argc, char *argv[])
     //test_main();
 	int encode_or_decode = 0, obf_end = 0, obf_class = 0, obf_section_typ = 0, obf_got = 0, obf_code = 0, valid_file = 0;//These values are all obfuscation options which can be specified in command line arguments
 	char fileStr[256];
-	char *flData;
+	unsigned char *flData;
 	int i, size, passes = 0, entryPoint;
 	FILE *pFile;
 	int *offsets; 
