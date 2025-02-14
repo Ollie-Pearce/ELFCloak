@@ -2,7 +2,7 @@
 
 ## Set-up and Compile
 
-Running `make` should compile:
+Running `make` will compile:
 
 - **Elfcloak**, the obfuscation framework itself.
 - **dec_and_run**, which can be used to decode and execute binaries encoded with Elfcloak.
