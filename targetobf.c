@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <time.h>
 #include <signal.h>
-#include <assert.h>
+#include <sys/timeb.h>
 //ELFCLOAK FILLER METHODS
 //Methods adapted from "The C Programming Language"(1978) by Brian Kernighan and Dennis Ritchie
 void
@@ -82,6 +81,7 @@ hurl()
 	}
 }
 
+
 int custom_printf(char* input) 
 {
 	printf("GOT obfuscation successful\n");
@@ -95,8 +95,8 @@ void testfunc()
 }
 int main()
 {
-    tray;
-	int x = system("Test\n");  
-    tray;
-	printf("%i\n",x);
-}
+	int y;  
+	time_t t;
+	t = time(NULL);
+	printf("I am a target file");
+}áð= Ä#qð= Ä#q
