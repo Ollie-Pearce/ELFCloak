@@ -33,6 +33,8 @@ Binaries encoded with the `e` option can be executed by:
   ```sh
   ./elfcloak d
   targetobf
+  chmod +x targetobfdec
+  ./targetobfdec
   ```
 
 - Running `dec_and_run`, which will decode the obfuscated binary and then execute the associated payload.
