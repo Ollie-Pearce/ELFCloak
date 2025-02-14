@@ -31,7 +31,8 @@ Binaries encoded with the `e` option can be executed by:
 - Running ELFCloak again with the `d` option for decoding and executing the resulting binary:
   
   ```sh
-  ./elfcloak d <encoded_binary>
+  ./elfcloak d
+  targetobf
   ```
 
 - Running `dec_and_run`, which will decode the obfuscated binary and then execute the associated payload.
